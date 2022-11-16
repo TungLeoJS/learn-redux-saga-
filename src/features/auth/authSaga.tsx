@@ -8,7 +8,7 @@ function* handleLogin(action: LoginPayload) {
     localStorage.setItem('access_token', 'fake_token');
 
     yield put(authActions.loginSuccess({id: 1, name: 'user' }))
-    yield put(push('/admin'));
+    yield put(push('/admin/dashboard'));
 }
 
 function* handleLogout() {
