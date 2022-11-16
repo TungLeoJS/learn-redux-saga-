@@ -1,17 +1,20 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { fork, take, takeEvery, takeLatest, delay, call, put } from 'redux-saga/effects';
+import { fork, take, delay, call, put } from 'redux-saga/effects';
 import { authActions, LoginPayload } from './authSlice';
+import { push } from 'connected-react-router';
 
 function* handleLogin(action: LoginPayload) {
-    yield delay(2000);
-    console.log('login')
+    yield delay(1000);
     localStorage.setItem('access_token', 'fake_token');
+
+    yield put(authActions.loginSuccess({id: 1, name: 'user' }))
+    yield put(push('/admin'));
 }
 
 function* handleLogout() {
-    yield delay(3000);
-    console.log('logout')
+    yield delay(1000);
     localStorage.removeItem('access_token');
+    yield put(push('/login'));
 }
 
 function* watchLoginFlow() {
